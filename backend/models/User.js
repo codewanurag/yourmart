@@ -8,8 +8,12 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true, minlength: 6 },
     avatar:   { type: String, default: '' },
     bio:      { type: String, default: '' },
-    location: { type: String, default: '' },
-    phone:    { type: String, default: '' },
+location: {
+  city: { type: String, default: '' },
+  state: { type: String, default: '' },
+  pincode: { type: String, default: '' },
+}, 
+  phone:    { type: String, default: '' },
     isSeller: { type: Boolean, default: false },
     sellerInfo: {
       storeName:   { type: String, default: '' },

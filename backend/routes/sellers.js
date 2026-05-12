@@ -15,7 +15,26 @@ router.get('/', async (req, res) => {
     res.status(500).json({ success: false, message: err.message });
   }
 });
+// GET /api/sellers/nearby?city=Bhopal
+router.get('/nearby', async (req, res) => {
+  try {
+    const city = (req.query.city || '').trim();
 
+    const filter = { isSeller: true };
+
+    if (city) {
+      filter['location.city'] = { $regex: city, $options: 'i' };
+    }
+
+    const sellers = await User.find(filter)
+      .select('-password -notifications')
+      .sort({ createdAt: -1 });
+
+    res.json({ success: true, sellers });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
 // GET /api/sellers/:id
 router.get('/:id', async (req, res) => {
   try {
