@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* ── Base resets ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Dark mode body ──────────────────────────────────────── */
+body.dark {
+  background: #0A0908;
+  color: #EDE8DF;
+}
+/* ── Light mode body ─────────────────────────────────────── */
+body.light {
+  background: #F5F0E8;
+  color: #1A1714;
+}
+
+/* ── Grain overlay ───────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 9998; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='0.025'/%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 3px; height: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #3D3A36; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #C9A84C; }
+
+/* ── Custom utilities ────────────────────────────────────── */
+@layer utilities {
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #C9A84C, #E8C96A);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .glass-dark {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  .glass-light {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  .border-gold-faint {
+    border-color: rgba(201, 168, 76, 0.2);
+  }
+  .shadow-gold {
+    box-shadow: 0 0 40px rgba(201, 168, 76, 0.15);
+  }
+  .shadow-ember {
+    box-shadow: 0 0 40px rgba(224, 92, 42, 0.2);
+  }
+  .animate-slide-up {
+    animation: slideUp 0.35s ease-out both;
+  }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Page transition ─────────────────────────────────────── */
+.page-enter { opacity: 0; transform: translateY(14px); }
+.page-enter-active {
+  opacity: 1; transform: translateY(0);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+.page-exit { opacity: 1; }
+.page-exit-active {
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+/* ── Live pulse ring ─────────────────────────────────────── */
+@keyframes lpulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.3; transform: scale(1.5); }
+}
+.live-dot { animation: lpulse 1.4s ease-in-out infinite; }
+
+/* ── Hero float ──────────────────────────────────────────── */
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50%       { transform: translateY(-10px) rotate(3deg); }
+}
+.hero-float { animation: heroFloat 4s ease-in-out infinite; }
+
+/* ── Story ring spin ─────────────────────────────────────── */
+@keyframes ringSpin { to { filter: hue-rotate(360deg); } }
+.ring-spin { animation: ringSpin 3s linear infinite; }
+
+/* ── Toast overrides (react-hot-toast) ───────────────────── */
+.toast-dark {
+  background: #1A1917 !important;
+  color: #EDE8DF !important;
+  border: 1px solid rgba(255,255,255,0.07) !important;
+  font-family: 'Outfit', sans-serif !important;
+}
+
+/* ── Mobile menu ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .sidebar-hidden { display: none !important; }
+  .mobile-full { width: 100% !important; }
+}
