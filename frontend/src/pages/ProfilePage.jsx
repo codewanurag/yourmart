@@ -324,5 +324,15 @@ export default function ProfilePage() {
         </div>
       )}
     </div>
+
+    
   )
 }
+
+<p>
+  Followers: {user.followers.length}
+</p>
+
+<p>
+  Following: {user.following.length}
+</p>
