@@ -121,7 +121,7 @@ export default function SellersPage() {
                     { label: 'Products',  value: sellerProds.length, icon: '📦', color: isDark ? 'text-cream' : 'text-lt_text' },
                     { label: 'Followers', value: followerCount, icon: '👥', color: isDark ? 'text-cream' : 'text-lt_text' },
                   ].map(({ label, value, icon, color }) => (
-                    <div key={label} className={`rounded-xl p-2 text-center border ${isDark ? 'bg-ink3 border-white/[0.07]' : 'bg-gray-50 border-lt_border'}`}>
+                    <div key={label} className="rounded-2xl p-3 text-center border border-[#eee3d6] bg-white">
                       <div className={`text-sm font-bold ${color}`}>{icon} {value}</div>
                       <div className={`text-[0.6rem] ${isDark ? 'text-muted' : 'text-lt_muted'}`}>{label}</div>
                     </div>
