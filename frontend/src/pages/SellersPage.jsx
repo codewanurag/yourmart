@@ -139,8 +139,11 @@ export default function SellersPage() {
 
                 <button
                   onClick={() => setActiveSeller(activeSeller?._id === seller._id ? null : seller)}
-                  className="w-full py-3 rounded-2xl text-sm font-semibold border border-[#eee3d6] text-[#7b6d62] hover:bg-[#faf7f2] transition-all"
-                    ${activeSeller?._id === seller._id
+                  className={`w-full py-3 rounded-2xl text-sm font-semibold border transition-all
+                  ${activeSeller?._id === seller._id
+                   ? 'bg-[#f5ede3] border-[#e6d5c3] text-[#5f5147]'
+                   : 'border-[#eee3d6] text-[#7b6d62] hover:bg-[#faf7f2]'
+                  }`}
                       ? 'bg-gradient-to-r from-gold to-gold2 text-ink border-transparent'
                       : isDark ? 'border-white/[0.1] text-dim hover:border-gold/30 hover:text-cream' : 'border-lt_border text-lt_muted hover:border-gold/30'
                     }`}>
