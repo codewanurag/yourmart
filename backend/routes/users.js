@@ -101,3 +101,16 @@ router.put('/notifications/read-all', protect, async (req, res) => {
 });
 
 module.exports = router;
+
+const express = require("express");
+const router = express.Router();
+
+const {
+  followUser,
+} = require("../controllers/userController");
+
+const { protect } = require("../middleware/authMiddleware");
+
+router.put("/follow/:id", protect, followUser);
+
+module.exports = router;
