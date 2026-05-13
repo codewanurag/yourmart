@@ -146,4 +146,6 @@ export default function CartDrawer({ open, onClose }) {
       )}
     </AnimatePresence>
   )
+
+  <FollowButton userId={user._id} />
 }
