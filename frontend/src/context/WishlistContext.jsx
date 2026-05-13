@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import API from '../utils/api'
 import toast from 'react-hot-toast'
 import { useAuth } from './AuthContext'
 
@@ -9,41 +8,65 @@ export const WishlistProvider = ({ children }) => {
   const { user } = useAuth()
   const [wishlist, setWishlist] = useState([])
 
+  const storageKey = user?.email
+    ? `yourmart_wishlist_${user.email}`
+    : 'yourmart_wishlist_guest'
+
   useEffect(() => {
-    if (user) fetchWishlist()
-    else setWishlist([])
-  }, [user])
+    const savedWishlist = localStorage.getItem(storageKey)
 
-  const fetchWishlist = async () => {
-    try {
-      const { data } = await API.get('/wishlist')
-      setWishlist(data.wishlist || [])
-    } catch {
-      // silently fail
-    }
-  }
-
-  const toggleWishlist = async (product) => {
-    if (!user) { toast.error('Please login to save items'); return }
-    const isIn = wishlist.some((w) => (w._id || w) === (product._id || product))
-    try {
-      const { data } = await API.post(`/wishlist/${product._id || product}`)
-      if (data.action === 'added') {
-        setWishlist((prev) => [...prev, product])
-        toast.success('Added to wishlist ♥')
-      } else {
-        setWishlist((prev) => prev.filter((w) => (w._id || w) !== (product._id || product)))
-        toast.success('Removed from wishlist')
+    if (savedWishlist) {
+      try {
+        setWishlist(JSON.parse(savedWishlist))
+      } catch {
+        setWishlist([])
       }
-    } catch {
-      toast.error('Could not update wishlist')
+    }
+  }, [storageKey])
+
+  useEffect(() => {
+    localStorage.setItem(storageKey, JSON.stringify(wishlist))
+  }, [wishlist, storageKey])
+
+  const toggleWishlist = (product) => {
+    if (!user) {
+      toast.error('Please login to save items')
+      return
+    }
+
+    const productId = product?._id || product
+
+    const alreadyExists = wishlist.some(
+      (item) => (item?._id || item) === productId
+    )
+
+    if (alreadyExists) {
+      setWishlist((prev) =>
+        prev.filter((item) => (item?._id || item) !== productId)
+      )
+
+      toast.success('Removed from wishlist')
+    } else {
+      setWishlist((prev) => [...prev, product])
+
+      toast.success('Added to wishlist ♥')
     }
   }
 
-  const isWishlisted = (id) => wishlist.some((w) => (w._id || w) === id)
+  const isWishlisted = (id) => {
+    return wishlist.some(
+      (item) => (item?._id || item) === id
+    )
+  }
 
   return (
-    <WishlistContext.Provider value={{ wishlist, toggleWishlist, isWishlisted, fetchWishlist }}>
+    <WishlistContext.Provider
+      value={{
+        wishlist,
+        toggleWishlist,
+        isWishlisted,
+      }}
+    >
       {children}
     </WishlistContext.Provider>
   )
