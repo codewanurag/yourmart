@@ -70,23 +70,13 @@ export default function SellersPage() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.08 }}
-              className={`rounded-3xl border overflow-hidden transition-all hover:-translate-y-1 hover:shadow-xl
-                ${isDark ? 'bg-ink2 border-white/[0.07] hover:border-gold/20' : 'bg-white border-lt_border hover:border-gold/20'}`}
+              className="rounded-[32px] border border-[#eee3d6] bg-white overflow-hidden shadow-sm hover:shadow-md transition-all"
             >
-              {/* Cover banner */}
-              <div className="h-16 relative overflow-hidden"
-                style={{
-                  background: `linear-gradient(135deg, ${['#1A0E00', '#0A0E1A', '#0A1A0E'][i % 3]}, ${['#2A1A00', '#0E1630', '#0E1A10'][i % 3]})`,
-                }}>
-                {/* Decorative dots */}
-                <div className="absolute inset-0 opacity-20"
-                  style={{ backgroundImage: 'radial-gradient(circle, rgba(201,168,76,0.5) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
-              </div>
-
-              <div className="px-4 pb-4">
+              
+              <div className="px-5 pt-5 pb-5">
                 {/* Avatar */}
-                <div className="flex items-end justify-between -mt-7 mb-3">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-gold to-ember border-3 border-ink2 flex items-center justify-center text-ink text-lg font-bold overflow-hidden"
+                <div className="flex items-start justify-between mb-5">
+                  <div className="w-16 h-16 rounded-full bg-[#f4f4f4] flex items-center justify-center overflow-hidden shadow-sm border border-[#eee]"> border-3 border-ink2 flex items-center justify-center text-ink text-lg font-bold overflow-hidden"
                     style={{ border: '3px solid', borderColor: isDark ? '#111010' : '#FFFFFF' }}>
                     {seller.avatar
                       ? <img src={seller.avatar} alt={seller.name} className="w-full h-full object-cover" />
@@ -149,7 +139,7 @@ export default function SellersPage() {
 
                 <button
                   onClick={() => setActiveSeller(activeSeller?._id === seller._id ? null : seller)}
-                  className={`w-full py-2.5 rounded-xl text-xs font-semibold transition-all border
+                  className="w-full py-3 rounded-2xl text-sm font-semibold border border-[#eee3d6] text-[#7b6d62] hover:bg-[#faf7f2] transition-all"
                     ${activeSeller?._id === seller._id
                       ? 'bg-gradient-to-r from-gold to-gold2 text-ink border-transparent'
                       : isDark ? 'border-white/[0.1] text-dim hover:border-gold/30 hover:text-cream' : 'border-lt_border text-lt_muted hover:border-gold/30'
