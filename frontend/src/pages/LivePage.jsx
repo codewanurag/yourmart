@@ -88,7 +88,7 @@ export default function LivePage() {
         >
           <div className="relative h-52 sm:h-64 overflow-hidden">
             <video
-              src={filtered[0].videoUrl}
+              src="C:\Users\anjan\OneDrive\Desktop\WhatsApp Video 2026-05-13 at 12.35.09 AM.mp4"
               autoPlay muted loop playsInline
               poster={filtered[0].thumbnail}
               className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
